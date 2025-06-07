@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/Database.php';
 
 class Employee {
     private $id;
@@ -15,23 +16,18 @@ class Employee {
     public function getId() {
         return $this->id;
     }
-
     public function setId($id) {
         $this->id = $id;
     }
-
     public function getName() {
         return $this->name;
     }
-
     public function getBaseSalary() {
         return $this->baseSalary;
     }
-
     public function getCommissionPct() {
         return $this->commissionPct;
     }
-
     public function calculateTotalSalary() {
         return $this->baseSalary + ($this->baseSalary * $this->commissionPct / 100);
     }
@@ -39,18 +35,17 @@ class Employee {
     public function save() {
         $db = new Database();
         $conn = $db->connect();
-        $stmt = $conn->prepare("INSERT INTO employees (name, base_salary, commission_pct) VALUES (?, ?, ?)");
-        $stmt->bind_param("sdd", $this->name, $this->baseSalary, $this->commissionPct);
-        return $stmt->execute();
+        $stmt = $conn->prepare("INSERT INTO empleados (nombre, salario_base, comision_pct) VALUES (?, ?, ?)");
+        return $stmt->execute([$this->name, $this->baseSalary, $this->commissionPct]);
     }
 
     public static function getAll() {
         $db = new Database();
         $conn = $db->connect();
-        $result = $conn->query("SELECT * FROM employees");
+        $stmt = $conn->query("SELECT * FROM empleados");
         $employees = [];
-        while ($row = $result->fetch_assoc()) {
-            $employee = new Employee($row['name'], $row['base_salary'], $row['commission_pct']);
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $employee = new Employee($row['nombre'], $row['salario_base'], $row['comision_pct']);
             $employee->setId($row['id']);
             $employees[] = $employee;
         }

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,30 +9,30 @@
 </head>
 <body>
     <div class="container">
-        <h1>Employee List</h1>
+        <h1>Lista de empleados</h1>
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Base Salary</th>
-                    <th>Commission Percentage</th>
-                    <th>Total Salary</th>
+                    <th>Nombre</th>
+                    <th>Salario Base</th>
+                    <th>Porcentaje de comision</th>
+                    <th>Salario total</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($employees as $employee): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($employee->id); ?></td>
-                    <td><?php echo htmlspecialchars($employee->name); ?></td>
-                    <td><?php echo htmlspecialchars($employee->baseSalary); ?></td>
-                    <td><?php echo htmlspecialchars($employee->commissionPct); ?>%</td>
+                    <td><?php echo htmlspecialchars($employee->getId()); ?></td>
+                    <td><?php echo htmlspecialchars($employee->getName()); ?></td>
+                    <td><?php echo htmlspecialchars($employee->getBaseSalary()); ?></td>
+                    <td><?php echo htmlspecialchars($employee->getCommissionPct()); ?>%</td>
                     <td><?php echo htmlspecialchars($employee->calculateTotalSalary()); ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <a href="register.php">Register New Employee</a>
+        <a href="/Parcial40/index.php?action=register">Registrar nuevo empleado</a>
     </div>
 </body>
 </html>

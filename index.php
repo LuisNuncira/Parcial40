@@ -1,5 +1,6 @@
 <?php
-require_once '../app/controllers/EmployeeController.php';
+
+require_once 'app/controllers/EmployeeController.php';
 
 $controller = new EmployeeController();
 
@@ -14,4 +15,3 @@ switch ($action) {
         $controller->listEmployees();
         break;
 }
-?>
